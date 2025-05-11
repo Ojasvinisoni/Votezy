@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Candidate Management</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(
+          to bottom,
+          #f3e5f5,
+          #e1bee7
+        ); /* Soft lavender gradient */
+        color: #4a148c; /* Deep purple text */
+        margin: 0;
+        padding: 0;
+        animation: fadeIn 1s ease-in-out;
+      }
+
+      /* Navbar Styling */
+      .navbar {
+        background: linear-gradient(
+          90deg,
+          #9c27b0,
+          #ba68c8
+        ); /* Vibrant purple gradient */
+        padding: 15px 30px;
+        box-shadow: 0 4px 15px rgba(74, 20, 140, 0.3); /* Deeper purple shadow */
+        transition: background 0.3s ease-in-out;
+      }
+
+      .navbar:hover {
+        background: linear-gradient(
+          90deg,
+          #7b1fa2,
+          #ab47bc
+        ); /* Darker purple on hover */
+      }
+
+      .navbar-brand {
+        font-size: 28px;
+        font-weight: bold;
+        color: #fff !important; /* White brand text */
+        transition: color 0.3s ease;
+      }
+
+      .navbar-brand:hover {
+        color: #e1bee7 !important; /* Light lavender on hover */
+      }
+
+      .navbar-nav .nav-link {
+        font-size: 18px;
+        font-weight: 500;
+        color: #fff !important; /* White link text */
+        margin-left: 20px;
+        position: relative;
+        transition: color 0.3s ease, transform 0.2s ease-in-out;
+      }
+
+      .navbar-nav .nav-link::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        left: 0;
+        bottom: -5px;
+        background: #f3e5f5; /* Light lavender underline */
+        transition: 0.3s ease;
+      }
+
+      .navbar-nav .nav-link:hover {
+        transform: translateY(-2px);
+        color: #f3e5f5 !important; /* Light lavender on hover */
+      }
+
+      .navbar-nav .nav-link:hover::after {
+        width: 100%;
+      }
+
+      /* Candidate Registration Form */
+      .container.mt-5 {
+        margin-top: 4rem !important; /* Adjust top margin */
+      }
+
+      .text-center.text-danger {
+        color: #d32f2f !important; /* A more distinct red */
+        transition: color 0.3s ease-in-out;
+      }
+
+      .text-center.text-danger:hover {
+        color: #c62828 !important; /* Darker red on hover */
+      }
+
+      .card.shadow-lg.p-4 {
+        background: linear-gradient(
+          to bottom,
+          #fff,
+          #f3e5f5
+        ); /* Soft purple card background */
+        box-shadow: 0 6px 15px rgba(74, 20, 140, 0.15); /* Subtle purple shadow */
+        border: none;
+        border-radius: 12px;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      }
+
+      .card.shadow-lg.p-4:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(74, 20, 140, 0.25); /* More prominent purple shadow */
+      }
+
+      .form-label {
+        color: #7b1fa2; /* Medium purple label text */
+        font-weight: 500;
+      }
+
+      .form-control {
+        border: 1px solid #ba68c8; /* Light purple border */
+        border-radius: 8px;
+        transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      }
+
+      .form-control:focus {
+        border-color: #9c27b0; /* Deeper purple on focus */
+        box-shadow: 0 0 0 0.25rem rgba(156, 39, 176, 0.25); /* Purple focus ring */
+      }
+
+      .btn.btn-danger.w-100 {
+        background: linear-gradient(
+          to right,
+          #d32f2f,
+          #c62828
+        ); /* Red gradient button */
+        border: none;
+        color: #fff;
+        font-weight: bold;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        transition: background 0.3s ease-in-out, transform 0.2s ease-in-out,
+          box-shadow 0.3s ease-in-out;
+      }
+
+      .btn.btn-danger.w-100:hover {
+        background: linear-gradient(
+          to right,
+          #c62828,
+          #b71c1c
+        ); /* Darker red on hover */
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+      }
+
+      /* Candidate List Table */
+      .container.mt-5:nth-child(2) {
+        /* Target the candidate list table container */
+        margin-top: 3rem !important;
+      }
+
+      h3.text-center.text-danger {
+        color: #d32f2f !important; /* Distinct red heading */
+        transition: color 0.3s ease-in-out;
+      }
+
+      h3.text-center.text-danger:hover {
+        color: #c62828 !important; /* Darker red on hover */
+      }
+
+      .table.table-bordered {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden; /* To contain the border-radius */
+        border: 1px solid #ba68c8; /* Light purple border */
+      }
+
+      .table.table-bordered th,
+      .table.table-bordered td {
+        border: 1px solid #ba68c8;
+        padding: 10px;
+        text-align: left;
+      }
+
+      .table.table-bordered thead.table-dark {
+        background-color: #7b1fa2; /* Medium purple header */
+        color: #fff;
+      }
+
+      .table.table-bordered thead.table-dark th {
+        border-color: #9c27b0; /* Deeper purple header border */
+      }
+
+      #candidatesContainer tr:nth-child(even) {
+        background-color: #f3e5f5; /* Light lavender for even rows */
+      }
+
+      #candidatesContainer tr:hover {
+        background-color: #e1bee7; /* Slightly darker lavender on row hover */
+        transition: background-color 0.3s ease-in-out;
+      }
+
+      /* Actions Buttons in Table */
+      #candidatesContainer .btn-sm {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+        border-radius: 6px;
+        margin-right: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+      }
+
+      #candidatesContainer .btn-primary {
+        background-color: #7b1fa2; /* Medium purple */
+        border-color: #7b1fa2;
+        color: #fff;
+      }
+
+      #candidatesContainer .btn-primary:hover {
+        background-color: #6a1b9a; /* Darker purple */
+        transform: translateY(-1px);
+        box-shadow: 0 3px 7px rgba(0, 0, 0, 0.2);
+      }
+
+      #candidatesContainer .btn-danger {
+        background-color: #d32f2f; /* Distinct red */
+        border-color: #d32f2f;
+        color: #fff;
+      }
+
+      #candidatesContainer .btn-danger:hover {
+        background-color: #c62828; /* Darker red */
+        transform: translateY(-1px);
+        box-shadow: 0 3px 7px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg" style="--bs-bg-opacity: 0">
+      <div class="container">
+        <a class="navbar-brand text-white fw-bold" href="index.html"
+          >Online Voting</a
+        >
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="voters.html">Voters</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="candidates.html"
+                >Candidates</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="voting.html">Voting</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="results.html">Results</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mt-5">
+      <h2 class="text-center text-danger">Register a Candidate</h2>
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card shadow-lg p-4">
+            <form id="candidateForm">
+              <div class="mb-3">
+                <label class="form-label">Candidate Name</label>
+                <input
+                  type="text"
+                  id="candidateName"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Party</label>
+                <input type="text" id="party" class="form-control" required />
+              </div>
+              <button type="submit" class="btn btn-danger w-100">
+                Register
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mt-5">
+      <h3 class="text-center text-danger">Registered Candidates</h3>
+      <table class="table table-bordered">
+        <thead class="table-dark">
+          <tr>
+            <th>Candidate ID</th>
+            <th>Name</th>
+            <th>Party</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="candidatesContainer"></tbody>
+      </table>
+    </div>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/candidates.js"></script>
+  </body>
+</html>

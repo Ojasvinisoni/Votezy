@@ -1,0 +1,184 @@
+/* General Page Styling */
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(
+    to bottom,
+    #fce4ec,
+    #f3e5f5
+  ); /* Soft, gradient background */
+  color: #4a148c; /* Deep purple text */
+  margin: 0;
+  padding: 0;
+  animation: fadeIn 1s ease-in-out;
+}
+.table tr:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Navbar Styling */
+.navbar {
+  background: linear-gradient(
+    90deg,
+    #9c27b0,
+    #ba68c8
+  ); /* Vibrant purple gradient */
+  padding: 15px 30px;
+  box-shadow: 0 4px 15px rgba(74, 20, 140, 0.3); /* Deeper purple shadow */
+  animation: slideDown 0.8s ease-in-out;
+}
+
+.navbar-brand {
+  font-size: 28px;
+  font-weight: bold;
+  color: #fff !important; /* White brand text */
+  transition: color 0.3s ease;
+}
+
+.navbar-brand:hover {
+  color: #e1bee7 !important; /* Light purple on hover */
+}
+
+.navbar-nav .nav-link {
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff !important; /* White link text */
+  margin-left: 20px;
+  position: relative;
+  transition: color 0.3s ease, transform 0.2s ease-in-out;
+}
+
+.navbar-nav .nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  left: 0;
+  bottom: -5px;
+  background: #f3e5f5; /* Light purple underline */
+  transition: 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  transform: translateY(-2px);
+  color: #f3e5f5 !important; /* Light purple on hover */
+}
+
+.navbar-nav .nav-link:hover::after {
+  width: 100%;
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(
+    135deg,
+    rgba(156, 39, 176, 0.85),
+    /* Rich purple */ rgba(225, 190, 231, 0.85) /* Light lavender */
+  );
+  padding: 60px 20px;
+  border-radius: 15px;
+  color: #fff; /* White text on hero */
+  text-align: center;
+  margin: 30px auto;
+  max-width: 900px;
+  box-shadow: 0 8px 20px rgba(74, 20, 140, 0.3); /* Deeper purple shadow */
+  animation: fadeInUp 1s ease-in-out;
+}
+
+/* Cards */
+.card {
+  background: linear-gradient(
+    to bottom right,
+    #f3e5f5,
+    #e1bee7
+  ); /* Soft purple card gradient */
+  border-radius: 12px;
+  box-shadow: 0px 8px 16px rgba(74, 20, 140, 0.2); /* Purple card shadow */
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: scale(1.03) translateY(-3px) rotate(-1deg); /* Subtle lift and rotate */
+  box-shadow: 0px 12px 25px rgba(74, 20, 140, 0.3); /* More pronounced purple shadow */
+}
+
+/* Buttons */
+.btn {
+  border-radius: 8px;
+  font-weight: bold;
+  padding: 12px 24px; /* Slightly larger padding */
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 10px rgba(74, 20, 140, 0.2); /* Purple button shadow */
+}
+
+.btn-primary {
+  background: linear-gradient(
+    to right,
+    #9c27b0,
+    #7b1fa2
+  ); /* Deepening purple gradient */
+  border: none;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(
+    to right,
+    #7b1fa2,
+    #6a1b9a
+  ); /* Even deeper purple */
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(74, 20, 140, 0.3); /* More pronounced purple shadow */
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Utility Animation Class */
+.fade-in {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Responsive Tweaks */
+@media (max-width: 768px) {
+  .navbar-nav .nav-link {
+    margin-left: 10px;
+    font-size: 16px;
+  }
+
+  .hero {
+    padding: 40px 15px;
+  }
+}
